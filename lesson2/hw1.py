@@ -14,13 +14,13 @@ while True:
             break
         
         if operator == '+':
-            res = res + float(operand)
+            res += float(operand)
         elif operator == '-':
-            res = res - float(operand)
+            res -= float(operand)
         elif operator == '*':
-            res = res * float(operand)
+            res *= float(operand)
         elif operator == '/':
-            res = res / float(operand)
+            res /= float(operand)
         else:
             print(f"Error, {operator} is not an operator")      
 
