@@ -19,11 +19,11 @@ all_files_extension = []
 for file in files:
     file_lower = file.lower()
 
-    if file_lower.endswith('jpg') |  file_lower.endswith('jpeg') |  file_lower.endswith('png'):
+    if file_lower.endswith('jpg') | file_lower.endswith('jpeg') | file_lower.endswith('png'):
        photo.append(file)
-    elif file_lower.endswith('avi') | file_lower.endswith('mp4') |  file_lower.endswith('mov'):
+    elif file_lower.endswith('avi') | file_lower.endswith('mp4') | file_lower.endswith('mov'):
         video.append(file)
-    elif file_lower.endswith('doc') | file_lower.endswith('docx') |  file_lower.endswith('txt') | file_lower.endswith('pdf') | file_lower.endswith('xlsx'):
+    elif file_lower.endswith('doc') | file_lower.endswith('docx') | file_lower.endswith('txt') | file_lower.endswith('pdf') | file_lower.endswith('xlsx'):
         docs.append(file)
     elif file_lower.endswith('mp3') | file_lower.endswith('ogg') | file_lower.endswith('wav') | file_lower.endswith('amr'):
         music.append(file)
@@ -34,10 +34,11 @@ for file in files:
     else:
         other.append(file)
 
-# Список всех разрешений
+# Список всех расширений
     if '.' in file_lower:
         all_files_extension.append(file_lower.split('.')[-1])
 
+# Только уникальные расширения
 unique_extension = set(all_files_extension)
 
 print('photo', len(photo), photo)
