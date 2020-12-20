@@ -4,33 +4,41 @@ res = 0
 
 while True:
     try:
-        operand = input('Input operand:')
-        if operand == '=':
-            break
-        operand = int(operand)   
-
         operator = input('Input operator:')
+        if operator not in ['+', '-', '*', '/', '=']:
+            print(f'Error, {operator} is not an operator')
+            continue
         if operator == '=':
             break
+
         
+        while True:
+            try:
+                operand = input('Input operand:')
+                if operand == '=':
+                    break
+                operand = int(operand)
+            except ValueError:
+                print(f'Error, {operator} is not an operator')
+                continue
+            break
+
+        if operand == '=':
+            break
+        
+    
         if operator == '+':
-            res += float(operand)
+            res += operand
         elif operator == '-':
-            res -= float(operand)
+            res -= operand
         elif operator == '*':
-            res *= float(operand)
+            res *= operand
         elif operator == '/':
-            res /= float(operand)
-        else:
-            print(f"Error, {operator} is not an operator")      
-
-    except ValueError:
-        print(f"Operand {operand} is not a number")
-
-
+            res /= operand
+   
+    
     except ZeroDivisionError:
-        print("Вivide by zero is prohibited")
+        print('Вivide by zero is prohibited')
     
 
 print(res)
-
