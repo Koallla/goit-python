@@ -69,11 +69,18 @@ def get_files_list(path):
     
 get_files_list(path)
 
-print('photo', len(photo), photo)
-print('video', len(video), video)
-print('docs', len(docs), docs)
-print('music', len(music), music)
-print('soft', len(soft), soft)
-print('zip_data', len(zip_data), zip_data)
-print('unknown_extensions', len(unknown_extensions), unknown_extensions)
-print('all_extension:', len(unique_extensions), unique_extensions)
+def create_string_format(extention, files_list):
+        format_string = '| {} {} | \n| {} {} | \n| {}'.format('Files names:', extention, 'Counts:', len(files_list), 'Files list: \n')
+        string_files = ''
+        for file in files_list:
+            string_files += file + '\n'
+        print(format_string + string_files)
+
+create_string_format('photo', photo)
+create_string_format('video', video)
+create_string_format('docs', docs)
+create_string_format('music', music)
+create_string_format('soft', soft)
+create_string_format('zip_data', zip_data)
+create_string_format('unknown_extensions', unknown_extensions)
+create_string_format('all_extension:', unique_extensions)
