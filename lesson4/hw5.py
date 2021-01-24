@@ -69,18 +69,32 @@ def get_files_list(path):
     
 get_files_list(path)
 
-def create_string_format(extention, files_list):
-        format_string = '| {} {} | \n| {} {} | \n| {}'.format('Files names:', extention, 'Counts:', len(files_list), 'Files list: \n')
+def create_table_string_format(extention, files_list):
+
+
+        width = 20
+        width_file_list = 60
+
         string_files = ''
         for file in files_list:
-            string_files += file + '\n'
-        print(format_string + string_files)
+            string_files += '| {:^{width}} | {:^{width}} | {:^{width_file_list}} | \n'.format(' ', ' ', file, width=width, width_file_list=width_file_list)
 
-create_string_format('photo', photo)
-create_string_format('video', video)
-create_string_format('docs', docs)
-create_string_format('music', music)
-create_string_format('soft', soft)
-create_string_format('zip_data', zip_data)
-create_string_format('unknown_extensions', unknown_extensions)
-create_string_format('all_extension:', unique_extensions)
+
+        title = '| {:^{width}} | {:^{width}} | {:^{width_file_list}} |'.format('Files names', 'Counts', 'Files list',  width=width, width_file_list=width_file_list)
+        line = '=' * len(title)
+        header = line + '\n' + title + '\n' + line + '\n'
+
+        files_name_and_count = '| {:^{width}} | {:^{width}} | {:_^{width_file_list}} | \n'.format(extention, len(files_list), '', width=width, width_file_list=width_file_list)
+
+        end = '{:=^{width}}'.format('END', width=len(title))
+
+        print(header + files_name_and_count + string_files + end)
+
+create_table_string_format('photo', photo)
+create_table_string_format('video', video)
+create_table_string_format('docs', docs)
+create_table_string_format('music', music)
+create_table_string_format('soft', soft)
+create_table_string_format('zip_data', zip_data)
+create_table_string_format('unknown_extensions', unknown_extensions)
+create_table_string_format('all_extension:', unique_extensions)
