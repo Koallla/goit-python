@@ -69,8 +69,9 @@ def get_files_list(path):
     
 get_files_list(path)
 
-def create_table_string_format(extention, files_list):
 
+def create_table_string_format(extention, files_list):
+    ''' This funcrion create table for files_list '''
 
         width = 20
         width_file_list = 60
@@ -79,16 +80,19 @@ def create_table_string_format(extention, files_list):
         for file in files_list:
             string_files += '| {:^{width}} | {:^{width}} | {:^{width_file_list}} | \n'.format(' ', ' ', file, width=width, width_file_list=width_file_list)
 
-
+        # Формируем таблицу для файлов
         title = '| {:^{width}} | {:^{width}} | {:^{width_file_list}} |'.format('Files names', 'Counts', 'Files list',  width=width, width_file_list=width_file_list)
         line = '=' * len(title)
         header = line + '\n' + title + '\n' + line + '\n'
+
 
         files_name_and_count = '| {:^{width}} | {:^{width}} | {:_^{width_file_list}} | \n'.format(extention, len(files_list), '', width=width, width_file_list=width_file_list)
 
         end = '{:=^{width}}'.format('END', width=len(title))
 
         print(header + files_name_and_count + string_files + end)
+
+
 
 create_table_string_format('photo', photo)
 create_table_string_format('video', video)
