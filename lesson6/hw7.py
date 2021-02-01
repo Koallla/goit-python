@@ -6,7 +6,9 @@ from translator import normalize
 
 
 # Чтобы запутить скрипт, нужно указать путь к папке через переменную path_dir:
-path_dir = 'D:\\Auto'
+# path_dir = 'D:\\Auto'
+
+path_dir = input("Введите путь к директории: ")
 path = Path(path_dir)
 
 
