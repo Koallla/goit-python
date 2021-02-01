@@ -4,6 +4,7 @@ import shutil
 from pathlib import Path
 from translator import normalize
 
+
 # Чтобы запутить скрипт, нужно указать путь к папке через переменную path_dir:
 path_dir = 'D:\\Auto'
 path = Path(path_dir)
@@ -23,19 +24,18 @@ docs_filter = ("doc", "docx", "txt", "pdf", "xlsx", "pptx")
 music_filter = ("mp3", "ogg", "wav", "amr")
 soft_filter = ("exe", "mdf", "mds")
 zip_data_filter = ("zip", "bztar", "gztar", "tar", "xztar")
-
-
-
-        
-    
-
-
-
 ignore_dir = ('images', 'video', 'audio', 'documents', 'archives', 'unknown_files')
+
+
+# Сообщение: Файл существует!
+def message_file_exists(file_name):
+    print(f'Файл {file_name} уже существует')
+    
 
 # Выделение уникальных расширений
 def extensions (file, container):
     container.add(file.suffix[1:].lower())
+
 
 # Перевод имени файлов и их переименование (для цикла path.iterdir())
 def rename_files (file):
@@ -46,7 +46,11 @@ def rename_files (file):
     p = Path(file)
     parent_dir = p.parent
     full_path_new_file = '{}\{}'.format(parent_dir, file_name_with_ext)
-    p.rename(full_path_new_file)
+    try:
+        p.rename(full_path_new_file)
+    except FileExistsError:
+        message_file_exists(file.name)
+    
 
 # Создание папки и перемещение в нее файлов определенного типа
 def remove_files (name_new_dir, file):
@@ -57,27 +61,52 @@ def remove_files (name_new_dir, file):
 
     # Создаем новую директорию и перемещаем в нее файл
     try:
-        Path(path_new_dir).mkdir()
-        shutil.move(file, path_new_dir)
-    except FileExistsError:
-        shutil.move(file, path_new_dir)
-       
+        if os.path.exists(path_new_dir):
+            shutil.move(file, path_new_dir)
+        else:
+            os.mkdir(path_new_dir)
+            shutil.move(file, path_new_dir)
+    except (FileExistsError, shutil.Error):
+        message_file_exists(file.name)
 
-   
+
+       
+# Создание папки, подпаки и распаковка архива 
+def unpack_archive_files(file):
+    zip_data.append(file.name)
+    # Создаем путь к директории для распаковки архивов
+    path_for_dir_archives = '{}\\{}'.format(path_dir, 'archives')
+
+    # Создаем путь к поддиректории для распаковки одного архива
+    path_for_dir_unpack = '{}\\{}'.format(path_for_dir_archives, file.name.removesuffix(file.suffix[:]))
+
+    if os.path.exists(path_for_dir_archives):
+        try:
+            # Распаковываем архив в подпапку и удаляем оригинал 
+            os.mkdir(path_for_dir_unpack)
+            shutil.unpack_archive(file, path_for_dir_unpack)
+            os.remove(file)
+
+        except (FileExistsError, shutil.Error):
+            # shutil.unpack_archive(file, path_for_dir_unpack)
+            message_file_exists(file.name)
+    else:
+        os.mkdir(path_for_dir_archives)
+        os.mkdir(path_for_dir_unpack)
+        # Распаковываем архив
+        shutil.unpack_archive(file, path_for_dir_unpack)
+        os.remove(file)
+
+
 # Получение всех файлов, в том числе вложенных, 
 def get_files_list(path):
     
-
     # Перевод всех файлов на латиницу
     for file in path.iterdir():
         rename_files(file)
 
     for file in path.iterdir():
         if file.is_file():
-
-            # all_files.append(file.name)
-            # # Получение уникальных расширений
-            # extensions(file, unique_extensions_tuple)
 
             ext_lower = file.suffix[1:].lower()
 
@@ -97,24 +126,12 @@ def get_files_list(path):
                 music.append(file.name)
                 remove_files('audio', file)
             
-            elif ext_lower in (music_filter):
-                music.append(file.name)
-                remove_files('audio', file)
             
             elif ext_lower in (zip_data_filter):
-                zip_data.append(file.name)
-                path_for_dir_archives = '{}\\{}'.format(path_dir, 'archives')
-                if os.path.exists(path_for_dir_archives):
-                    path_for_dir_unpack = '{}\\{}'.format(path_for_dir_archives, file.name.removesuffix(file.suffix[:]))
-                    os.mkdir(path_for_dir_unpack)
-                    shutil.unpack_archive(file, path_for_dir_unpack)
-                else:
-                    os.mkdir(path_for_dir_archives)
-                    path_for_dir_unpack = '{}\\{}'.format(path_for_dir_archives, file.name.removesuffix(file.suffix[:]))
-                    os.mkdir(path_for_dir_unpack)
-                    shutil.unpack_archive(file, path_for_dir_unpack)
+                unpack_archive_files(file)
+            
 
-
+            # Как я понял из условия задания, неизвестные файлы мы не трогаем... 
             # else:
             #     unknown_files.append(file.name)
             #     remove_files('unknown_files', file)
@@ -126,8 +143,10 @@ def get_files_list(path):
         else:
             # Создаем новый путь
             path_for_recursion = Path(f'{file.parent}\{file.name}')
+
             # Рекурсия
             get_files_list(path_for_recursion)
+
             # Удаление пустых директорий
             try:
                 Path.rmdir(file)
@@ -136,7 +155,6 @@ def get_files_list(path):
 
 
 get_files_list(path)
-
 
 
 def create_table_string_format(extention, files_list):
@@ -161,16 +179,11 @@ def create_table_string_format(extention, files_list):
     print(header + files_name_and_count + string_files + end)
 
 
-
-
-# create_table_string_format('photo', photo)
-# create_table_string_format('video', video)
-# create_table_string_format('docs', docs)
-# create_table_string_format('music', music)
-
-
-# create_table_string_format('zip_data', zip_data)
-# create_table_string_format('unknown_files', unknown_files)
-
+if photo or video or docs or music or zip_data:
+    create_table_string_format('photo', photo)
+    create_table_string_format('video', video)
+    create_table_string_format('docs', docs)
+    create_table_string_format('music', music)
+    create_table_string_format('zip_data', zip_data)
 
 
