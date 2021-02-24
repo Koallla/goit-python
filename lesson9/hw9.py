@@ -1,17 +1,18 @@
 import json
 
 
-
 def input_error(func):
-    def inner(data):
+    def inner(*data):
         try:
-            return func(data)
+            return func(*data)
         except KeyError:
             return print('Please, enter correct command...')
         except ValueError:
             return print("Name or number is empty")
         except NameError:
             return print("Name is not found")
+        except FileNotFoundError:
+            return print("No contacts")
     return inner
 
 
@@ -93,7 +94,7 @@ def func_phone(command):
     else:    
         raise ValueError
     
-
+@input_error
 def func_show_all(message=True):
     print('Working command show all...')
 
@@ -119,7 +120,6 @@ def func_good_bye(message=True):
     print('Goodbay!')
     
 
-
 COMANDS = {
     'hello': func_hello,
     'add': func_add,
@@ -130,9 +130,6 @@ COMANDS = {
     'close': func_good_bye,
     'exit': func_good_bye,
 }
-
-
-
 
 
 def main():
