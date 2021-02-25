@@ -1,5 +1,6 @@
 import json
 
+# Будем сохранять контакты в файл .json 
 
 def input_error(func):
     def inner(*data):
@@ -16,6 +17,7 @@ def input_error(func):
     return inner
 
 
+# Получение имени и номера из введеной команды
 def get_name_and_number(command):
     command = command.split(' ')
     if len(command) == 3:
