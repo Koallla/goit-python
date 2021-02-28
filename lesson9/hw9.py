@@ -1,6 +1,7 @@
 import json
 
-# Будем сохранять контакты в файл .json 
+
+# Будем сохранять контакты в файл .json
 
 def input_error(func):
     def inner(*data):
@@ -14,6 +15,7 @@ def input_error(func):
             return print("Name is not found")
         except FileNotFoundError:
             return print("No contacts")
+
     return inner
 
 
@@ -32,8 +34,10 @@ def get_name_and_number(command):
     else:
         return False
 
+
 def func_hello(message=True):
     print('How can I help you?')
+
 
 @input_error
 def func_add(command):
@@ -56,7 +60,8 @@ def func_add(command):
                 print(f'phone number of {name} was saved!')
 
     else:
-        raise ValueError 
+        raise ValueError
+
 
 @input_error
 def func_change(command):
@@ -67,7 +72,7 @@ def func_change(command):
             current_dict = json.loads(file)
             new_dict, name = get_name_and_number(command)
             if current_dict.get(name):
-                current_dict.update(new_dict)     
+                current_dict.update(new_dict)
                 with open('contacts.json', 'w') as fh:
                     fh.write(json.dumps(current_dict))
                     print(f'phone number of {name} was changed!')
@@ -75,7 +80,7 @@ def func_change(command):
 
             else:
                 raise NameError
-    else:    
+    else:
         raise ValueError
 
 
@@ -92,10 +97,11 @@ def func_phone(command):
                 if key == name:
                     print(f'phone number of {name} is {value}')
                     return
-            raise NameError           
-    else:    
+            raise NameError
+    else:
         raise ValueError
-    
+
+
 @input_error
 def func_show_all(message=True):
     print('Working command show all...')
@@ -112,15 +118,16 @@ def func_show_all(message=True):
             if len(value) > max_len_number:
                 max_len_number = len(value)
         for key, value in current_dict.items():
-            s = "| {:^{width_name}} | {:^{width_number}} |".format(key, value, width_name=max_len_name, width_number=max_len_number)
+            s = "| {:^{width_name}} | {:^{width_number}} |".format(key, value, width_name=max_len_name,
+                                                                   width_number=max_len_number)
             format_str += (s + '\n')
 
         print(format_str)
 
 
 def func_good_bye(message=True):
-    print('Goodbay!')
-    
+    print('Goodbye!')
+
 
 COMANDS = {
     'hello': func_hello,
@@ -135,9 +142,8 @@ COMANDS = {
 
 
 def main():
-
     while True:
-        
+
         command = input("Please, enter command: ")
 
         @input_error
@@ -147,7 +153,8 @@ def main():
             # Первые два слова из введенной строки
             if len(command_in_list) > 1:
                 first_two_word = f'{command_in_list[0]} {command_in_list[1]}'
-                # Если есть ключ, который состоит из двух слов, берем его значение, нет - берем ключ по первому слову из введеной строки
+                # Если есть ключ, который состоит из двух слов, берем его значение, нет - берем ключ по первому слову
+                # из введеной строки
                 return COMANDS[first_two_word] if COMANDS.get(first_two_word) else COMANDS[command_in_list[0]]
             else:
                 return COMANDS[command]
@@ -161,7 +168,4 @@ def main():
             break
 
 
-
-
 main()
-
