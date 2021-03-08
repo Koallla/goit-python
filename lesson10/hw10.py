@@ -9,14 +9,10 @@ class AddressBook(UserDict):
         print(self.data)
 
 
-a = AddressBook()
-
-
 class Record:
     def __init__(self, name, *phones):
         self.name = name
         self.phone = [number for number in phones]
-
 
 
 class Field:
@@ -30,4 +26,3 @@ class Name(Field):
 
 class Phone(Field):
     pass
-
