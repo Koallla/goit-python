@@ -10,14 +10,18 @@ class AddressBook(UserDict):
 
 
 class Record:
-    def __init__(self, name, *phones):
+    def __init__(self, name, phones):
         self.name = name
         self.phone = [number for number in phones]
 
 
+
+
+
 class Field:
     name = ''
-    phone = None
+    phone = []
+
 
 
 class Name(Field):
