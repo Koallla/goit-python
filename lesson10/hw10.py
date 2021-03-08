@@ -10,14 +10,22 @@ class AddressBook(UserDict):
 
 
 class Record:
-    def __init__(self, name, phones):
+    def __init__(self, name, phones, emails):
         self.name = name
         self.phone = [number for number in phones]
+        self.email = [email for email in emails]
+
+    def add_number(self, number):
+        self.phone.append(number)
+
+    def delete_number(self, number):
+        self.phone.remove(number)
 
 
 class Field:
     name = ''
     phone = []
+    email = []
 
 
 class Name(Field):
