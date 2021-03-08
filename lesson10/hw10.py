@@ -15,13 +15,9 @@ class Record:
         self.phone = [number for number in phones]
 
 
-
-
-
 class Field:
     name = ''
     phone = []
-
 
 
 class Name(Field):
