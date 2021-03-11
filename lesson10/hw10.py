@@ -14,19 +14,18 @@ class Record:
     data_dict = {}
 
     def __init__(self, name, phone):
-        self.key = Name(name).name
-        # self.name = Name(name).
-        self.phone = Phone(list(phone))
+        self.key = Name(name)
+        # self.name = Name(name)
+        self.phones = Phone(set(phone))
 
         if self.key not in self.data_dict:
-            self.data_dict[self.key] = self.phone.phone
+            self.data_dict[self.key.name] = self.phones.phones
 
+    def add_number(self, name, number):
+        self.data_dict[name].add(number)
 
-    # def add_number(self, number):
-    #     self.phone.append(number)
-    #
-    # def delete_number(self, number):
-    #     self.phone.remove(number)
+    def delete_all_number(self, name):
+        self.data_dict[name].clear()
 
 
 class Field:
@@ -38,12 +37,11 @@ class Name(Field):
         self.name = name
 
 
-
 class Phone(Field):
     def __init__(self, phone):
-        self.phone = phone
+        self.phones = phone
 
 
 a = AddressBook()
 a.add_record('Kirill', 1111111, 2222222, 55555555)
-a.show_all()
+a.add_record('Liza', 1, 2, 55)

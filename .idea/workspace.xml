@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cf9a7616-3374-46e2-a168-58b941208702" name="Default Changelist" comment="added classes">
+    <list default="true" id="cf9a7616-3374-46e2-a168-58b941208702" name="Default Changelist" comment="fixed added method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lesson10/hw10.py" beforeDir="false" afterPath="$PROJECT_DIR$/lesson10/hw10.py" afterDir="false" />
     </list>
@@ -136,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615474587980</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed added method">
+      <created>1615484428321</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1615484428321</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,6 +162,7 @@
     <MESSAGE value="open in pycharm" />
     <MESSAGE value="added .idea in gitignore" />
     <MESSAGE value="added classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added classes" />
+    <MESSAGE value="fixed added method" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed added method" />
   </component>
 </project>
