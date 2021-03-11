@@ -2,17 +2,21 @@ from collections import UserDict
 
 
 class AddressBook(UserDict):
+
     def add_record(self, record):
-        self.data[record.name] = record
+        self.data[record.name.value] = record.phone
 
     def show_all(self):
         print(self.data)
 
 
 class Record:
-    def __init__(self, name, *phone):
+    phone = []
+
+    def __init__(self, name, phone):
+
         self.name = name
-        self.phone = list(phone)
+        self.phone.append(phone.value)
 
     def add_number(self, number):
         self.phone.append(number)
@@ -21,18 +25,16 @@ class Record:
         self.phone.remove(number)
 
 
-
-
 class Field:
-    name = ''
-    phone = []
-    email = []
+    def __init__(self, value):
+        self.value = value
 
 
 class Name(Field):
-    def __init__(self, name):
-        self.name = name
+    pass
 
 
 class Phone(Field):
     pass
+
+
