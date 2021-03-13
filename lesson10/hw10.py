@@ -3,29 +3,41 @@ from collections import UserDict
 
 class AddressBook(UserDict):
 
-    def add_record(self, name, *phone):
-        self.data.update(Record(name, phone).data_dict)
+    def add_record(self, record):
+        if record.key.name in self.data:
+            self.data[record.key.name].update(record.data_dict)
+        else:
+            self.data[record.key.name] = record.data_dict
 
-    def show_all(self):
-        print(self.data)
+    def __str__(self):
+        return f'Records in AddressBook: {self.data}'
 
 
 class Record:
-    data_dict = {}
 
-    def __init__(self, name, phone):
+    def __init__(self, name, value, *phone):
+        self.data_dict = {}
+        self.value = value
         self.key = Name(name)
-        # self.name = Name(name)
-        self.phones = Phone(set(phone))
+        self.phones = Phone(list(phone))
 
         if self.key not in self.data_dict:
-            self.data_dict[self.key.name] = self.phones.phones
+            self.data_dict[self.value] = self.phones.phones
 
-    def add_number(self, name, number):
-        self.data_dict[name].add(number)
+    def add_data(self, field, *data):
+        if field in self.data_dict:
+            for data_element in data:
+                self.data_dict[field].append(data_element)
+        else:
+            self.data_dict[field] = list(data)
 
-    def delete_all_number(self, name):
-        self.data_dict[name].clear()
+    def delete_data_in_field(self, field):
+        for key, value in self.data_dict.items():
+            if key == field:
+                value.clear()
+
+    def __str__(self):
+        return f'{self.data_dict}'
 
 
 class Field:
@@ -42,6 +54,7 @@ class Phone(Field):
         self.phones = phone
 
 
-a = AddressBook()
-a.add_record('Kirill', 1111111, 2222222, 55555555)
-a.add_record('Liza', 1, 2, 55)
+# kirill = Record('Kirill', 'phone', 380506042357, 380953128882)
+# a = AddressBook()
+# a.add_record(kirill)
+# print(a)
