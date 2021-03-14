@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cf9a7616-3374-46e2-a168-58b941208702" name="Default Changelist" comment="fixed added method">
+    <list default="true" id="cf9a7616-3374-46e2-a168-58b941208702" name="Default Changelist" comment="change method added data">
+      <change afterPath="$PROJECT_DIR$/lesson11/HW11.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lesson10/hw10.py" beforeDir="false" afterPath="$PROJECT_DIR$/lesson10/hw10.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +22,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1p7byHXhTnu2f8lyayTehYwEBm0" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -150,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615487230963</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="change method added data">
+      <created>1615654350630</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615654350630</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,6 +179,7 @@
     <MESSAGE value="added .idea in gitignore" />
     <MESSAGE value="added classes" />
     <MESSAGE value="fixed added method" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed added method" />
+    <MESSAGE value="change method added data" />
+    <option name="LAST_COMMIT_MESSAGE" value="change method added data" />
   </component>
 </project>
