@@ -1,13 +1,18 @@
 from collections import UserDict
 import copy
 import csv
+import pickle
 from datetime import datetime, timedelta
 from helpers import check_birthday_date, WrongDateFormat, check_phone_number, WrongPhoneNumberFormat
 
 
 class AddressBook(UserDict):
+    field_names = ['user', 'data']
+
     def add_record(self, record):
+        print(self.data)
         self.data[record.name] = record
+        print(self.data)
 
     def iterator(self, record_count):
         result = ''
@@ -26,14 +31,30 @@ class AddressBook(UserDict):
                     break
 
     def save_data(self, path):
-        attributes = copy.deepcopy(self.data)
+        with open(path, 'wb') as file:
+            pickle.dump(self.data, file)
 
-        with open(path, 'w', newline='') as file:
-            field_names = ['user', 'data']
-            writer = csv.DictWriter(file, fieldnames=field_names)
-            writer.writeheader()
-            for key, value in attributes.items():
-                writer.writerow({'user': key, 'data': value})
+    def load_data(self, path):
+        with open(path, 'rb') as file:
+            self.data = pickle.load(file)
+
+
+
+
+    # def save_data(self, path):
+    #     attributes = copy.deepcopy(self.data)
+    #
+    #     with open(path, 'w', newline='') as file:
+    #         writer = csv.DictWriter(file, fieldnames=self.field_names)
+    #         writer.writeheader()
+    #         for key, value in attributes.items():
+    #             writer.writerow({'user': key, 'data': value})
+    #
+    # def load_data(self, path):
+    #     with open(path, 'r', newline='') as file:
+    #         reader_data = csv.DictReader(file)
+    #         for row in reader_data:
+    #             self.data[row[self.field_names[0]]] = row[self.field_names[1]]
 
 
 
@@ -172,8 +193,6 @@ class Birthday(Field):
     #     return f'Birthday: {self.__value}'
 
 
-
-
 user = Record('user', 'phone', 380953128882, 380506042357)
 # print(user)
 user1 = Record('user1', 'phone', 380953128882, 380506042357, birthday='23 07 2014')
@@ -193,16 +212,17 @@ user3 = Record('user3', 'phone', 380953128882, 380506042357, birthday='12 01 198
 # print(user2)
 
 
-
 a = AddressBook()
-a.add_record(user)
-a.add_record(user1)
-a.add_record(user2)
-a.add_record(user3)
+# a.add_record(user)
+# a.add_record(user1)
+# a.add_record(user2)
+# a.add_record(user3)
 
 # a.iterator(2)
 # print(a)
 
-a.save_data('test.csv')
-
+# a.save_data('test.bin')
+a.load_data('test.bin')
+print(a)
+print(a.data)
 
