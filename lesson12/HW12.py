@@ -1,4 +1,6 @@
 from collections import UserDict
+import copy
+import csv
 from datetime import datetime, timedelta
 from helpers import check_birthday_date, WrongDateFormat, check_phone_number, WrongPhoneNumberFormat
 
@@ -23,8 +25,16 @@ class AddressBook(UserDict):
                     print(result)
                     break
 
-    def save_data(self, path)
-        attributes = self.data.__dic
+    def save_data(self, path):
+        attributes = copy.deepcopy(self.data)
+
+        with open(path, 'w', newline='') as file:
+            field_names = ['user', 'data']
+            writer = csv.DictWriter(file, fieldnames=field_names)
+            writer.writeheader()
+            for key, value in attributes.items():
+                writer.writerow({'user': key, 'data': value})
+
 
 
     def __str__(self):
@@ -39,8 +49,6 @@ class Record:
         self.value = value
         self.name = name
         if phone:
-            # p = Phone()
-            # p.value = phone
             self.phones = Phone(phone).value
         if birthday:
             self.birthday = Birthday(birthday).value
@@ -192,25 +200,9 @@ a.add_record(user1)
 a.add_record(user2)
 a.add_record(user3)
 
-a.iterator(2)
+# a.iterator(2)
 # print(a)
 
-# p = Phone(380953128882)
-# print(p)
-# p[0] = 380953128883
-# print(p)
-# p[1] = 380953128884
-# print(p)
-# p[1] = 380953128885
-# print(p)
-# p[2] = 380953128888
-# print(p)
-# p[0] = 380953128881
-# print(p)
-#
-
-
-
-
+a.save_data('test.csv')
 
 
