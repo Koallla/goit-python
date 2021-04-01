@@ -25,5 +25,3 @@ def check_phone_number(number):
         return True
     else:
         raise WrongPhoneNumberFormat
-
-

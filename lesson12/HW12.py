@@ -1,8 +1,7 @@
 from collections import UserDict
-import copy
-import csv
-import pickle
 from datetime import datetime, timedelta
+import pickle
+
 from helpers import check_birthday_date, WrongDateFormat, check_phone_number, WrongPhoneNumberFormat
 
 
@@ -10,9 +9,7 @@ class AddressBook(UserDict):
     field_names = ['user', 'data']
 
     def add_record(self, record):
-        print(self.data)
         self.data[record.name] = record
-        print(self.data)
 
     def iterator(self, record_count):
         result = ''
@@ -38,25 +35,23 @@ class AddressBook(UserDict):
         with open(path, 'rb') as file:
             self.data = pickle.load(file)
 
+    def get_user_list(self, input_data=None):
+        user_list = []
+        input_data = str(input_data).lower()
+        for name, value in self.data.items():
+            try:
+                if str(name).lower().find(input_data) >= 0:
+                    user_list.append([name, str(value)])
+                for phone in value.phones:
+                    if input_data in str(phone):
+                        user_list.append([name, str(value)])
+            except AttributeError:
+                continue
 
-
-
-    # def save_data(self, path):
-    #     attributes = copy.deepcopy(self.data)
-    #
-    #     with open(path, 'w', newline='') as file:
-    #         writer = csv.DictWriter(file, fieldnames=self.field_names)
-    #         writer.writeheader()
-    #         for key, value in attributes.items():
-    #             writer.writerow({'user': key, 'data': value})
-    #
-    # def load_data(self, path):
-    #     with open(path, 'r', newline='') as file:
-    #         reader_data = csv.DictReader(file)
-    #         for row in reader_data:
-    #             self.data[row[self.field_names[0]]] = row[self.field_names[1]]
-
-
+        if user_list:
+            print(user_list)
+        else:
+            print('User was not found')
 
     def __str__(self):
         result = ''
@@ -193,36 +188,21 @@ class Birthday(Field):
     #     return f'Birthday: {self.__value}'
 
 
-user = Record('user', 'phone', 380953128882, 380506042357)
-# print(user)
-user1 = Record('user1', 'phone', 380953128882, 380506042357, birthday='23 07 2014')
-user2 = Record('user2', 'phone', 380953128882, 380506042357, birthday='12 01 1983')
-user3 = Record('user3', 'phone', 380953128882, 380506042357, birthday='12 01 1983')
-# user.add_data('phone', 380991245367, 380995555555)
-# print(user)
-# user2.add_data('birthday', '12 01 1983')
-# print(user2)
-# user2.delete_data_in_field('birthday')
-# print(user2)
-# user2.add_data('birthday', '14 04 2011')
-# print(user2)
-# user2.days_to_birthday()
-#
-# user2.delete_data_in_field('phone')
-# print(user2)
+# Для проверки
 
+Kirill = Record('Kirill', 'phone', 380951111111, 380502222222)
+Ola = Record('Ola', 'phone', 380953333333, 380504444444, birthday='23 07 2014')
+Liza = Record('Liza', 'phone', 380955555555, 380506666666, birthday='12 01 1983')
+Koala = Record('Koala', 'phone', 380953128882, 380509999999, birthday='22 07 1983')
 
 a = AddressBook()
-# a.add_record(user)
-# a.add_record(user1)
-# a.add_record(user2)
-# a.add_record(user3)
-
-# a.iterator(2)
-# print(a)
-
+a.add_record(Kirill)
+a.add_record(Ola)
+a.add_record(Liza)
+a.add_record(Koala)
+#
 # a.save_data('test.bin')
-a.load_data('test.bin')
-print(a)
-print(a.data)
-
+# a.load_data('test.bin')
+#
+a.get_user_list('z')
+a.get_user_list(3333)
